@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:
+                radial-gradient(circle at top left, #253b80, transparent 35%),
+                radial-gradient(circle at bottom right, #6d28d9, transparent 35%),
+                #070b17;
+            color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 400px;
+            padding: 40px;
+            border-radius: 25px;
+            background: rgba(15, 23, 42, 0.82);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(99, 102, 241, 0.15);
+            backdrop-filter: blur(20px);
+            animation: aparecer 0.7s ease;
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            font-size: 32px;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+
+        .form {
+            display: none;
+        }
+
+        .form.active {
+            display: block;
+            animation: aparecer 0.4s ease;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            outline: none;
+            background: #0f172a;
+            color: white;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.35);
+        }
+
+        .switch {
+            margin-top: 25px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .switch span {
+            color: #818cf8;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .switch span:hover {
+            color: #a5b4fc;
+        }
+
+        .message {
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            font-size: 14px;
+        }
+
+        .success {
+            display: block;
+            background: rgba(34, 197, 94, 0.12);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .error {
+            display: block;
+            background: rgba(239, 68, 68, 0.12);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #475569;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="logo">🔐</div>
+
+        <h1 id="title">Bem-vindo</h1>
+
+        <p class="subtitle" id="subtitle">
+            Entre na sua conta para continuar
+        </p>
+
+
+        <!-- LOGIN -->
+
+        <form class="form active" id="loginForm">
+
+            <div class="input-group">
+                <label>Usuário</label>
+                <input
+                    type="text"
+                    id="loginUser"
+                    placeholder="Digite seu usuário"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label>Senha</label>
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Digite sua senha"
+                    required
+                >
+            </div>
+
+            <button type="submit">
+                Entrar
+            </button>
+
+        </form>
+
+
+        <!-- CADASTRO -->
+
+        <form class="form" id="registerForm">
+
+            <div class="input-group">
+                <label>Usuário</label>
+                <input
+                    type="text"
+                    id="registerUser"
+                    placeholder="Escolha um usuário"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <input
+                    type="email"
+                    id="registerEmail"
+                    placeholder="seu@email.com"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label>Senha</label>
+                <input
+                    type="password"
+                    id="registerPassword"
+                    placeholder="Crie uma senha"
+                    required
+                >
+            </div>
+
+            <button type="submit">
+                Criar conta
+            </button>
+
+        </form>
+
+
+        <div class="message" id="message"></div>
+
+
+        <div class="switch">
+            <span id="switchText">
+                Ainda não possui uma conta?
+            </span>
+
+            <span id="switchButton" onclick="trocarFormulario()">
+                Criar conta
+            </span>
+        </div>
+
+        <div class="footer">
+            © 2026 • Login System
+        </div>
+
+    </div>
+
+
+    <script>
+
+        let modoLogin = true;
+
+
+        function trocarFormulario() {
+
+            modoLogin = !modoLogin;
+
+            const login = document.getElementById("loginForm");
+            const register = document.getElementById("registerForm");
+
+            const title = document.getElementById("title");
+            const subtitle = document.getElementById("subtitle");
+
+            const switchText = document.getElementById("switchText");
+            const switchButton = document.getElementById("switchButton");
+
+            limparMensagem();
+
+
+            if (modoLogin) {
+
+                login.classList.add("active");
+                register.classList.remove("active");
+
+                title.innerText = "Bem-vindo";
+
+                subtitle.innerText =
+                    "Entre na sua conta para continuar";
+
+                switchText.innerText =
+                    "Ainda não possui uma conta?";
+
+                switchButton.innerText =
+                    "Criar conta";
+
+            } else {
+
+                login.classList.remove("active");
+                register.classList.add("active");
+
+                title.innerText = "Criar conta";
+
+                subtitle.innerText =
+                    "Crie sua conta gratuitamente";
+
+                switchText.innerText =
+                    "Já possui uma conta?";
+
+                switchButton.innerText =
+                    "Entrar";
+            }
+        }
+
+
+        function mostrarMensagem(texto, tipo) {
+
+            const message = document.getElementById("message");
+
+            message.innerText = texto;
+
+            message.className =
+                "message " + tipo;
+        }
+
+
+        function limparMensagem() {
+
+            const message = document.getElementById("message");
+
+            message.innerText = "";
+
+            message.className = "message";
+        }
+
+
+        // CADASTRO
+
+        document.getElementById("registerForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const usuario =
+                document.getElementById("registerUser").value;
+
+            const email =
+                document.getElementById("registerEmail").value;
+
+            const senha =
+                document.getElementById("registerPassword").value;
+
+
+            let usuarios =
+                JSON.parse(localStorage.getItem("usuarios")) || [];
+
+
+            const existe =
+                usuarios.some(user => user.usuario === usuario);
+
+
+            if (existe) {
+
+                mostrarMensagem(
+                    "❌ Esse usuário já existe!",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            usuarios.push({
+                usuario: usuario,
+                email: email,
+                senha: senha
+            });
+
+
+            localStorage.setItem(
+                "usuarios",
+                JSON.stringify(usuarios)
+            );
+
+
+            mostrarMensagem(
+                "✅ Conta criada com sucesso!",
+                "success"
+            );
+
+
+            this.reset();
+
+        });
+
+
+        // LOGIN
+
+        document.getElementById("loginForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const usuario =
+                document.getElementById("loginUser").value;
+
+            const senha =
+                document.getElementById("loginPassword").value;
+
+
+            let usuarios =
+                JSON.parse(localStorage.getItem("usuarios")) || [];
+
+
+            const encontrado =
+                usuarios.find(user =>
+                    user.usuario === usuario &&
+                    user.senha === senha
+                );
+
+
+            if (encontrado) {
+
+                mostrarMensagem(
+                    "✅ Login realizado! Bem-vindo, " +
+                    encontrado.usuario + "!",
+                    "success"
+                );
+
+            } else {
+
+                mostrarMensagem(
+                    "❌ Usuário ou senha incorretos!",
+                    "error"
+                );
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
